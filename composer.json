@@ -12,8 +12,9 @@
     "require": {
 		"php":">=7.1.0",
 		"topthink/framework": "^6.0.0",
-		"firebase/php-jwt": "^5.2"
-	},
+		"firebase/php-jwt": "^5.2",
+      	"ext-json": "*"
+    },
 	"autoload":{
 		"psr-4":{
 			"aibayanyu\\JWT": "src/"

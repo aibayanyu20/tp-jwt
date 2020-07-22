@@ -10,5 +10,11 @@ return [
     // 签发者
     "iss"=>env("jwt.iss",""),
     //面向用户
-    "aud"=>env("jwt.aud","")
+    "aud"=>env("jwt.aud",""),
+    // 是否默认请求一次刷新一次token
+    "is_refresh"=>env("jwt.refresh",false),
+    // 刷新token以什么方式返回默认是在header头中返回
+    "response_type"=>env("jwt.response_type","header"),
+    // 返回的键的形式
+    "response_key"=>env("jwt.response_key","token")
 ];

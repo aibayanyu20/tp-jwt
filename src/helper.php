@@ -3,6 +3,9 @@
  * @time 17:56 2020/7/21
  * @author loster
  */
+
+use aibayanyu\JWT\exception\JWTListException;
+
 if (function_exists("jwt_encode")){
     /**
      * 加密
@@ -29,5 +32,9 @@ if (function_exists("jwt_encode")){
      */
     function jwt_verify(){
 
+    }
+}elseif (function_exists("exception_jwt")){
+    function exception_jwt($message,$code = 500){
+        throw new JWTListException($message,$code);
     }
 }

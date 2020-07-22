@@ -8,6 +8,7 @@ namespace aibayanyu\JWT;
 
 use Firebase\JWT\JWT as JWTFirebase;
 use think\Exception;
+use aibayanyu\JWT\exception\JWTListException;
 
 class JWT
 {
@@ -39,8 +40,9 @@ class JWT
     }
 
     /**
-     * @time 18:17 2020/7/21
-     * @param array $payload 数据
+     * @time 9:58 2020/7/22
+     * @param array $payload
+     * @throws JWTListException
      * @author loster
      */
     public function encode($payload = []){
@@ -55,13 +57,15 @@ class JWT
         // 创建一个加密token
         $token = JWTFirebase::encode($data,$this->secret,"HS256");
         // 把当前的token加入白名单
-        $whiteList = new WhiteList();
+        $whiteList = new WhiteList($data);
+        // 将加入白名单的格式回传过去
+        $whiteList->join($token);
 
     }
 
     public function verify($token){
         // 验证当前的token还是否有效
-        
+
     }
 
 }
