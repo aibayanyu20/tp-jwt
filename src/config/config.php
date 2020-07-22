@@ -16,5 +16,7 @@ return [
     // 刷新token以什么方式返回默认是在header头中返回
     "response_type"=>env("jwt.response_type","header"),
     // 返回的键的形式
-    "response_key"=>env("jwt.response_key","token")
+    "response_key"=>env("jwt.response_key","token"),
+    // 请求返回的键的形式
+    "request_key"=>env("jwt.request_key","token")
 ];

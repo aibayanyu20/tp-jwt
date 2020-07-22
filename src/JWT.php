@@ -6,7 +6,10 @@
 
 namespace aibayanyu\JWT;
 
+use Firebase\JWT\BeforeValidException;
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT as JWTFirebase;
+use Firebase\JWT\SignatureInvalidException;
 use think\Exception;
 use aibayanyu\JWT\exception\JWTListException;
 
@@ -42,6 +45,7 @@ class JWT
     /**
      * @time 9:58 2020/7/22
      * @param array $payload
+     * @return string
      * @throws JWTListException
      * @author loster
      */
@@ -60,12 +64,27 @@ class JWT
         $whiteList = new WhiteList($data);
         // 将加入白名单的格式回传过去
         $whiteList->join($token);
-
+        // 加入白名单并返回数据
+        return $token;
     }
 
-    public function verify($token){
-        // 验证当前的token还是否有效
+    public function decode($token){
+        try {
+            $data = JWTFirebase::decode($token,$this->secret,array("HS256"));
+            // 获取到数据直接返回数据
+            if (isset($data->data)) return (array) $data->data;
+        }catch (SignatureInvalidException $exception){
+            // 签名不正确
 
+        }catch (BeforeValidException $exception){
+            // 签名还未生效
+
+        }catch (ExpiredException $exception){
+            // token已过期
+
+        }catch (\Exception $exception){
+            // 暂时未知的错误
+        }
     }
 
 }

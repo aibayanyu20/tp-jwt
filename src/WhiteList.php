@@ -73,6 +73,7 @@ class WhiteList
         if (!$index) return true;
         // 拿到数据开始删除
         array_splice($this->list,$index,1);
+        cache($this->key,$this->list);
         return true;
     }
 
@@ -88,6 +89,14 @@ class WhiteList
         $data = array_column($this->list,"token");
         if (in_array($token,$data)) return true;
         return false;
+    }
+
+    /**
+     * 清空当前的白名单列表
+     */
+    public function clear(){
+        cache($this->key,NULL);
+        return true;
     }
 
 }
